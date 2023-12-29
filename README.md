@@ -43,8 +43,16 @@ php artisan migrate
 ```bash
 php artisan db:seed
 ```
+```bash
+php artisan db:seed --class=DummySeeder
+```
 
-8. Jalankan aplikasi:
+8. Build Front-End:
+
+```bash
+npm run build
+```
+9. Jalankan aplikasi:
 
 Untuk menjalankan aplikasi dapat menggunakan tool Artisan (bawaan Laravel) atau dengan PHP.
 
