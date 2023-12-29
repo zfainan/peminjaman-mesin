@@ -112,7 +112,7 @@
         </div>
     </div>
 
-    <script src="{{ Vite::asset('resources/js/vendor/qrcode.min.js') }}"></script>
+    <script src="/vendor/qrcode.min.js"></script>
 
     <script>
         const formDelete = document.getElementById('formDeleteGudang');
