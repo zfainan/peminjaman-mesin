@@ -15,7 +15,7 @@ class GudangSeeder extends Seeder
     public function run(): void
     {
         $jabatan = Jabatan::firstWhere('nama_jabatan', 'Petugas Gudang');
-        $petugas = User::where('id_jabatan', $jabatan?->id)->get();
+        $petugas = User::where('id_jabatan', $jabatan?->id_)->get();
 
         Gudang::create([
             'nama_gudang' => 'Gudang ' . fake()->company,

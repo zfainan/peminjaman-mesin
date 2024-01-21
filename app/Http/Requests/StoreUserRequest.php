@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest implements StoreRequestContract, Upda
     public function rules(): array
     {
         $jabatanKepalaId = Jabatan::firstWhere('nama_jabatan', JabatanEnum::KEPALA_LANE->value)
-            ->id;
+            ->id_;
         $userId = $this->route('user');
 
         return [
@@ -44,7 +44,7 @@ class StoreUserRequest extends FormRequest implements StoreRequestContract, Upda
                 Rule::requiredIf($this->id_jabatan == $jabatanKepalaId),
                 Rule::excludeIf($this->id_jabatan != $jabatanKepalaId)
             ],
-            'id_jabatan' => 'required|exists:jabatan,id',
+            'id_jabatan' => 'required|exists:jabatan,id_',
         ];
     }
 }

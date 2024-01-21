@@ -87,6 +87,6 @@ class User extends CrudModel implements
 
     public function jabatan(): BelongsTo
     {
-        return $this->belongsTo(Jabatan::class, 'id_jabatan');
+        return $this->belongsTo(Jabatan::class, 'id_jabatan', 'id_');
     }
 }

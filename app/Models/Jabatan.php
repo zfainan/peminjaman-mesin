@@ -6,5 +6,7 @@ class Jabatan extends CrudModel
 {
     protected $table = 'jabatan';
 
-    protected $guarded = ['id'];
+    protected $guarded = ['id_'];
+
+    protected $primaryKey = 'id_';
 }

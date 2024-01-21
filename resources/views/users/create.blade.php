@@ -40,7 +40,7 @@
                             id="staticJabatan" onchange="toggleJabatanInput()">
                             <option selected disabled>Pilih Jabatan</option>
                             @foreach ($jabatan as $item)
-                                <option @selected(isset($data) ? $item->id == $data->id_jabatan : $item->id == old('id_jabatan')) value="{{ $item->id }}">{{ $item->nama_jabatan }}
+                                <option @selected(isset($data) ? $item->id_ == $data->id_jabatan : $item->id_ == old('id_jabatan')) value="{{ $item->id_ }}">{{ $item->nama_jabatan }}
                                 </option>
                             @endforeach
                         </select>
@@ -99,7 +99,7 @@
         function toggleJabatanInput() {
 
             if (selectElement.value ==
-                {{ $jabatan->firstWhere('nama_jabatan', 'Kepala Lane')?->id }}) {
+                {{ $jabatan->firstWhere('nama_jabatan', 'Kepala Lane')?->id_ }}) {
                 additionalInputElement.style.display = 'flex';
                 laneInput.removeAttribute('disabled')
             } else {

@@ -18,21 +18,21 @@ class UserSeeder extends Seeder
             'nama' => fake()->name,
             'username' => 'admin',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Admin')?->id,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Admin')?->id_,
         ]);
 
         User::create([
             'nama' => fake()->name,
             'username' => 'petugas.gudang',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Petugas Gudang')?->id,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Petugas Gudang')?->id_,
         ]);
 
         User::create([
             'nama' => fake()->name,
             'username' => 'kepala.lane',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id_,
             'lane' => 'Lane 001',
         ]);
 
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'nama' => fake()->name,
             'username' => 'kepala.lane1',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id_,
             'lane' => 'Lane 002',
         ]);
 
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             'nama' => fake()->name,
             'username' => 'kepala.lane2',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id_,
             'lane' => 'Lane 003',
         ]);
     }

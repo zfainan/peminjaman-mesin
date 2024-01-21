@@ -206,7 +206,7 @@
             formScanContainer.classList.add('d-none')
 
             document.getElementById('textScanUnavailableContainer')
-                            .classList.add('d-none')
+                .classList.add('d-none')
         }
     </script>
 @endsection
