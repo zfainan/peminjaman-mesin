@@ -4,6 +4,7 @@ use App\Enums\JabatanEnum;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\DashboardAnalyticController;
 use App\Http\Controllers\GudangController;
+use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('engines', MesinController::class);
 
         Route::resource('warehouses', GudangController::class);
+
+        Route::resource('maintenances', MaintenanceController::class);
     });
 
     Route::middleware('role:' . JabatanEnum::ADMIN->value)->group(function () {

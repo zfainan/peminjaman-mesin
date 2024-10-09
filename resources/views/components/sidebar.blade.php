@@ -56,16 +56,23 @@ $jabatan = auth()->user()->jabatan->nama_jabatan;
 
         <!-- Nav Item -->
         <li class="nav-item {{ Str::contains(Route::currentRouteName(), 'warehouses.') ? 'active' : '' }}">
-            <a class="nav-link" href="/warehouses">
+            <a class="nav-link" href="{{ route('warehouses.index') }}">
                 <i class="fas fa-fw fa-warehouse"></i>
                 <span>Data Gudang</span></a>
         </li>
 
         <!-- Nav Item -->
         <li class="nav-item {{ Str::contains(Route::currentRouteName(), 'engines.') ? 'active' : '' }}">
-            <a class="nav-link" href="/engines">
+            <a class="nav-link" href="{{ route('engines.index') }}">
                 <i class="fas fa-fw fa-microscope"></i>
                 <span>Data Mesin</span></a>
+        </li>
+
+        <!-- Nav Item -->
+        <li class="nav-item {{ Str::contains(Route::currentRouteName(), 'maintenances.') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('maintenances.index') }}">
+                <i class="fas fa-fw fa-microscope"></i>
+                <span>Data Pemeliharaan Mesin</span></a>
         </li>
     @endif
 

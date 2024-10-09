@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequestContract;
 use App\Http\Requests\UpdateRequestContract;
-use App\Models\CrudModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +39,7 @@ abstract class CrudController extends Controller
     public function index()
     {
         return view($this->indexView, [
-            'data' => $this->model()->latest()->paginate()
+            'data' => $this->model()->latest()->paginate()->withQueryString()
         ]);
     }
 
