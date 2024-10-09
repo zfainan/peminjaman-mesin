@@ -13,15 +13,15 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        Jabatan::create([
+        Jabatan::firstOrCreate([
             'nama_jabatan' => JabatanEnum::ADMIN->value
         ]);
 
-        Jabatan::create([
+        Jabatan::firstOrCreate([
             'nama_jabatan' => JabatanEnum::PETUGAS_GUDANG->value
         ]);
 
-        Jabatan::create([
+        Jabatan::firstOrCreate([
             'nama_jabatan' => JabatanEnum::KEPALA_LANE->value
         ]);
     }

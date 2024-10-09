@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Enums\JabatanEnum;
 use App\Models\Jabatan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,25 +14,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(JabatanSeeder::class);
+
         User::create([
             'nama' => fake()->name,
             'username' => 'admin',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Admin')?->id_,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan',  JabatanEnum::ADMIN->value)?->id_,
         ]);
 
         User::create([
             'nama' => fake()->name,
             'username' => 'petugas.gudang',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Petugas Gudang')?->id_,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan',  JabatanEnum::PETUGAS_GUDANG->value)?->id_,
         ]);
 
         User::create([
             'nama' => fake()->name,
             'username' => 'kepala.lane',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id_,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan',  JabatanEnum::KEPALA_LANE->value)?->id_,
             'lane' => 'Lane 001',
         ]);
 
@@ -40,7 +42,7 @@ class UserSeeder extends Seeder
             'nama' => fake()->name,
             'username' => 'kepala.lane1',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id_,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', JabatanEnum::KEPALA_LANE->value)?->id_,
             'lane' => 'Lane 002',
         ]);
 
@@ -48,7 +50,7 @@ class UserSeeder extends Seeder
             'nama' => fake()->name,
             'username' => 'kepala.lane2',
             'password' => 'password',
-            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', 'Kepala Lane')?->id_,
+            'id_jabatan' => Jabatan::firstWhere('nama_jabatan', JabatanEnum::KEPALA_LANE->value)?->id_,
             'lane' => 'Lane 003',
         ]);
     }

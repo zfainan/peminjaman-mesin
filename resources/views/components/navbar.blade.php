@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand navbar-light topbar static-top mb-4 bg-white shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -11,15 +11,16 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                aria-haspopup="true" aria-expanded="false" onKeyPress>
                 <div class="d-flex flex-column mr-4">
-                    <p class="d-none d-lg-inline text-gray-600 mb-0 text-right">{{ auth()->user()->nama }}</p>
-                    <p class="d-none d-lg-inline text-gray-600 small mb-0 text-right">{{ auth()->user()->jabatan->nama_jabatan }}</p>
+                    <p class="d-none d-lg-inline mb-0 text-right text-gray-600">{{ auth()->user()->nama }}</p>
+                    <p class="d-none d-lg-inline small mb-0 text-right text-gray-600">
+                        {{ auth()->user()->jabatan->nama_jabatan }}</p>
                 </div>
                 <img class="img-profile rounded-circle" src="/img/undraw_profile.svg" alt="">
             </a>
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+            <div class="dropdown-menu dropdown-menu-right animated--grow-in shadow" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
@@ -30,7 +31,6 @@
     </ul>
 
 </nav>
-
 
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

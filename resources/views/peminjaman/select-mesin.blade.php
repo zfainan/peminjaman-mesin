@@ -11,11 +11,11 @@
     @endif
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-wrap">
-            <h5 class="font-weight-bold text-primary mb-2 my-auto mr-auto">Pilih Mesin</h5>
+    <div class="card mb-4 shadow">
+        <div class="card-header d-flex flex-wrap py-3">
+            <h5 class="font-weight-bold text-primary my-auto mb-2 mr-auto">Pilih Mesin</h5>
             <a href="#" class="btn btn-primary my-auto" data-toggle="modal" data-target="#scanModal">Scan QR</a>
-            <form class="mt-4 form-inline ml-sm-2 my-2 my-md-0 mw-100 navbar-search">
+            <form class="form-inline ml-sm-2 my-md-0 mw-100 navbar-search my-2 mt-4">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control bg-light" placeholder="Cari nama mesin..."
                         aria-label="Search" aria-describedby="basic-addon2" value="{{ request()->input('search') }}">
@@ -29,7 +29,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table-hover table">
                     <thead>
                         <tr>
                             <th class="border-0">No.</th>
@@ -42,7 +42,7 @@
                         @foreach ($dataMesin as $mesin)
                             <tr
                                 @if ($mesin->is_available) role="button" data-toggle="modal" data-target="#pinjamModal"
-                                onclick="setMesin({{ $mesin }}, '{{ route('borrow.store', ['mesin' => $mesin->id]) }}')" @endif>
+                                onclick="setSelectedMesin({{ $mesin->toJson() }})" @endif>
                                 <td>{{ $loop->iteration + $dataMesin->perPage() * ($dataMesin->currentPage() - 1) }}</td>
                                 <td>{{ $mesin->nama_mesin }}</td>
                                 <td>{{ $mesin->gudang?->nama_gudang }}</td>
@@ -58,6 +58,7 @@
                     </tbody>
                 </table>
             </div>
+
             {{ $dataMesin->links() }}
         </div>
     </div>
@@ -76,8 +77,10 @@
                 <div class="modal-body">
                     Apakah Anda ingin meminjam <strong><span id="textNamaMesin"></span></strong>?
                 </div>
-                <form id="formPinjam" class="modal-footer" method="POST">
+                <form id="formPinjam" action="{{ route('borrows.store') }}" class="modal-footer" method="POST">
                     @csrf
+
+                    <input id="inputIdMesin" type="hidden" name="id_mesin">
 
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <button class="btn btn-primary" type="submit">Pinjam</button>
@@ -85,7 +88,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- scan Modal-->
     <div class="modal fade" id="scanModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
@@ -101,14 +103,19 @@
                 <div class="modal-body">
                     <div id="reader"></div>
                     <div id="formScanContainer" class="d-none container py-5">
-                        <form id="formScan" class="form text-center" method="POST">
+
+                        <span>Nama Mesin: </span>
+                        <p class="font-weight-bolder text-dark" id="textScanMesin"></p>
+                        <span>Gudang: </span>
+                        <p class="font-weight-bolder text-dark" id="textScanGudang"></p>
+                        <span>Status: </span>
+                        <p class="font-weight-bolder text-dark" id="textScanStatus"></p>
+
+                        <form id="formScan" action="{{ route('borrows.store') }}" class="form text-center" method="POST">
                             @csrf
-                            <span>Nama Mesin: </span>
-                            <p class="font-weight-bolder text-dark" id="textScanMesin"></p>
-                            <span>Gudang: </span>
-                            <p class="font-weight-bolder text-dark" id="textScanGudang"></p>
-                            <span>Status: </span>
-                            <p class="font-weight-bolder text-dark" id="textScanStatus"></p>
+
+                            <input id="inputScanIdMesin" type="hidden" name="id_mesin">
+
                             <button class="btn btn-primary" type="submit">Pinjam</button>
                         </form>
                     </div>
@@ -129,10 +136,11 @@
     <script>
         const formPinjam = document.getElementById('formPinjam');
         const text = document.getElementById('textNamaMesin');
+        const input = document.getElementById('inputIdMesin');
 
-        const setMesin = (mesinData, link) => {
-            formPinjam.setAttribute('action', link)
-            text.innerHTML = mesinData.nama_mesin;
+        const setSelectedMesin = (mesin) => {
+            text.innerHTML = mesin.nama_mesin;
+            input.value = mesin.id;
         }
     </script>
 @endsection
@@ -148,6 +156,8 @@
         const textScanMesin = document.getElementById('textScanMesin')
         const textScanGudang = document.getElementById('textScanGudang')
         const textScanStatus = document.getElementById('textScanStatus')
+
+        const inputScanIdMesin = document.getElementById('inputScanIdMesin');
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", {
@@ -165,7 +175,7 @@
                     textScanGudang.innerHTML = response.data?.gudang?.nama_gudang
                     textScanStatus.innerHTML = response.data?.is_available ? 'Tersedia' : 'Tidak Tersedia'
 
-                    formScan.setAttribute('action', `/borrow/${response.data?.id}`)
+                    inputScanIdMesin.value = response.data?.id
 
                     reader.classList.add('d-none')
                     formScanContainer.classList.remove('d-none')

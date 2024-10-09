@@ -17,9 +17,9 @@
     @endif
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-wrap justify-content-between">
-            <h5 class="m-0 font-weight-bold text-primary mb-2 my-sm-auto">History Table</h5>
+    <div class="card mb-4 shadow">
+        <div class="card-header d-flex justify-content-between flex-wrap py-3">
+            <h5 class="font-weight-bold text-primary my-sm-auto m-0 mb-2">History Table</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -40,15 +40,15 @@
                             <tr>
                                 <td>{{ $loop->iteration + $data->perPage() * ($data->currentPage() - 1) }}</td>
                                 <td>{{ $item->mesin?->nama_mesin }}</td>
-                                <td>{{ $item->tgl_pinjam->diffForHumans() }}</td>
-                                <td>{{ $item->tgl_kembali?->diffForHumans() ?? '-' }}</td>
+                                <td>{{ $item->tgl_pinjam->isoFormat('DD MMMM Y - HH:mm') }}</td>
+                                <td>{{ $item->tgl_kembali?->isoFormat('DD MMMM Y - HH:mm') ?? '-' }}</td>
                                 <td>{{ $item->mesin?->gudang?->nama_gudang }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>
                                     @if ($item->tgl_kembali == null)
                                         <button class="btn btn-sm btn-primary" data-toggle="modal"
                                             data-target="#kembaliModal"
-                                            onclick="setPeminjaman({{ $item }}, '{{ route('borrow.return', ['id' => $item->id]) }}')">Kembalikan</button>
+                                            onclick="setPeminjaman({{ $item->toJson() }})">Kembalikan</button>
                                     @else
                                         -
                                     @endif
@@ -58,6 +58,7 @@
                     </tbody>
                 </table>
             </div>
+
             {{ $data->links() }}
         </div>
     </div>
@@ -76,8 +77,10 @@
                 <div class="modal-body">
                     Apakah Anda ingin mengembalikan <strong><span id="textNamaMesin"></span></strong>?
                 </div>
-                <form id="formKembali" class="modal-footer" method="POST">
+                <form action="{{ route('returns.store') }}" id="formKembali" class="modal-footer" method="POST">
                     @csrf
+
+                    <input id="inputPeminjamanId" type="hidden" name="id_peminjaman">
 
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <button class="btn btn-primary" type="submit">Kembalikan</button>
@@ -89,10 +92,11 @@
     <script>
         const formKembali = document.getElementById('formKembali');
         const text = document.getElementById('textNamaMesin');
+        const inputId = document.getElementById('inputPeminjamanId');
 
         const setPeminjaman = (data, link) => {
-            formKembali.setAttribute('action', link)
             text.innerHTML = data.mesin.nama_mesin;
+            inputId.value = data.id;
         }
     </script>
 @endsection

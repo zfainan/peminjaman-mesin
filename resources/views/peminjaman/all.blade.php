@@ -17,9 +17,9 @@
     @endif
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-wrap justify-content-between">
-            <h5 class="m-0 font-weight-bold text-primary mb-2 my-sm-auto">Loan Table</h5>
+    <div class="card mb-4 shadow">
+        <div class="card-header d-flex justify-content-between flex-wrap py-3">
+            <h5 class="font-weight-bold text-primary my-sm-auto m-0 mb-2">Loan Table</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -41,8 +41,8 @@
                                 <td>{{ $loop->iteration + $data->perPage() * ($data->currentPage() - 1) }}</td>
                                 <td>{{ $item->mesin?->nama_mesin }}</td>
                                 <td>{{ $item->peminjam?->nama }}</td>
-                                <td>{{ $item->tgl_pinjam->diffForHumans() }}</td>
-                                <td>{{ $item->tgl_kembali?->diffForHumans() ?? '-' }}</td>
+                                <td>{{ $item->tgl_pinjam->isoFormat('DD MMMM Y - HH:mm') }}</td>
+                                <td>{{ $item->tgl_kembali?->isoFormat('DD MMMM Y - HH:mm') ?? '-' }}</td>
                                 <td>{{ $item->mesin?->gudang?->nama_gudang }}</td>
                                 <td>{{ $item->status }}</td>
                             </tr>

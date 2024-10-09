@@ -24,24 +24,24 @@ $jabatan = auth()->user()->jabatan->nama_jabatan;
 
     @if ($jabatan === \App\Enums\JabatanEnum::ADMIN->value || $jabatan === \App\Enums\JabatanEnum::KEPALA_LANE->value)
         <!-- Nav Item -->
-        <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'borrow.') ? 'active' : '' }}">
-            <a class="nav-link" href="/borrow">
+        <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'borrows.create') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('borrows.create') }}">
                 <i class="fas fa-fw fa-people-carry"></i>
                 <span>Pinjam Mesin</span></a>
         </li>
 
         <!-- Nav Item -->
-        <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'borrow-history') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('borrow-history') }}">
+        <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'returns.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('returns.index') }}">
                 <i class="fas fa-fw fa-history"></i>
-                <span>Riwayat Peminjaman</span></a>
+                <span>Pengembalian Mesin</span></a>
         </li>
     @endif
 
     @if ($jabatan === \App\Enums\JabatanEnum::ADMIN->value || $jabatan === \App\Enums\JabatanEnum::PETUGAS_GUDANG->value)
         <!-- Nav Item -->
-        <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'loan') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('loan') }}">
+        <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'borrows.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('borrows.index') }}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Data Peminjaman</span></a>
         </li>
@@ -78,12 +78,11 @@ $jabatan = auth()->user()->jabatan->nama_jabatan;
         </li>
     @endif
 
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
+    <div class="d-none d-md-inline text-center">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
